@@ -51,7 +51,7 @@ const updateExercise = asyncHandler(async (req, res) => {
         throw new Error('Exercise not found')
     };
 
-    const updatedExercose = await Exercise.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    const updatedExercise = await Exercise.findByIdAndUpdate(req.params.id, req.body, {new: true});
 
     res.status(200).json(updatedExercise);
 });

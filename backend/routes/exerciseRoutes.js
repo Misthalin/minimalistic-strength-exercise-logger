@@ -6,11 +6,11 @@ const Role = require('../_helpers/role');
 
 router.route('/')
         .get(authorize(), getExercises)
-        .post(authorize(Role.Admin), postExercise);
+        .post(authorize(), postExercise);
 
 router.route('/:id')
-        .get(authorize(Role.Admin), getExercise)
-        .delete(authorize(Role.Admin), deleteExercise)
-        .put(authorize(Role.Admin), updateExercise);
+        .get(authorize(), getExercise)
+        .delete(authorize(), deleteExercise)
+        .put(authorize(), updateExercise);
 
 module.exports = router;
