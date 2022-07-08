@@ -13,6 +13,8 @@ const schema = new Schema({
 
     acceptTerms: Boolean,
 
+    exercises: [{ type: Schema.Types.ObjectId, ref: "Exercise" }], // Array of exercise IDs added by user
+
     role: { type: String, required: true },
 
     verificationToken: String,
