@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { getExercise, getExercises, postExercise, updateExercise, deleteExercise } = require('../controllers/exerciseController');
+const { getExercises, postExercise, updateExercise, deleteExercise, postSession } = require('../controllers/exerciseController');
 const authorize = require("../_middleware/authorize");
-const Role = require('../_helpers/role');
 
 router.route('/')
         .get(authorize(), getExercises)
-        .post(authorize(), postExercise);
+        .post(authorize(), postExercise)
 
-router.route('/:id')
-        .get(authorize(), getExercise)
+
+/*router.route('/:id')
         .delete(authorize(), deleteExercise)
-        .put(authorize(), updateExercise);
+        .put(authorize(), updateExercise);*/
+
+router.route('/session')
+        .post(authorize(), postSession);
 
 module.exports = router;

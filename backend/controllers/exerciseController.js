@@ -5,25 +5,10 @@ const Exercise = require('../models/exerciseModel');
 // @route   GET /api/exercises
 // @access  Private
 const getExercises = asyncHandler(async (req, res) => {
-  
     const currentUser = req.user.id;
     const exercises = await Exercise.find({_creator: currentUser});
 
     res.status(200).json(exercises);
-});
-
-// @desc    Get exercise
-// @route   GET /api/exercises/:id
-// @access  Private
-const getExercise = asyncHandler(async (req, res) => {
-    const exercise = await Exercise.findById(req.params.id);
-
-    if(!exercise) {
-        res.status(400)
-        throw new Error('Exercise not found')
-    };
-
-    res.status(200).json(exercise);
 });
 
 // @desc    Post exercise
@@ -74,4 +59,24 @@ const deleteExercise = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id });
 });
 
-module.exports = { getExercise, getExercises, postExercise, updateExercise, deleteExercise };
+const postSession = asyncHandler(async (req, res) => {
+    console.log(req.body)
+    // send userid, exerciseid, comment(optionally), sets(number, weight, repetitions)
+    // add array of session sets
+    // push to exercise object id
+    // only post if _creator matches user id
+
+
+    /*const currentUser = req.user.id;
+
+    if( !typeOfExercise || !currentUser ) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    };
+
+    const exercise = await Exercise.create({ typeOfExercise, _creator: currentUser });
+
+    res.status(200).json(exercise);*/
+})
+
+module.exports = { getExercises, postExercise, updateExercise, deleteExercise, postSession };
