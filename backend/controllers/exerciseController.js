@@ -5,7 +5,9 @@ const Exercise = require('../models/exerciseModel');
 // @route   GET /api/exercises
 // @access  Private
 const getExercises = asyncHandler(async (req, res) => {
-    const exercises = await Exercise.find();
+  
+    const currentUser = req.user.id;
+    const exercises = await Exercise.find({_creator: currentUser});
 
     res.status(200).json(exercises);
 });
@@ -28,14 +30,15 @@ const getExercise = asyncHandler(async (req, res) => {
 // @route   POST /api/exercises
 // @access  Private
 const postExercise = asyncHandler(async (req, res) => {
-    const { userId, exerciseName } = req.body;
-    const sessionHistory = [];
-    if( !userId || !exerciseName ) {
+    const { typeOfExercise } = req.body;
+    const currentUser = req.user.id;
+
+    if( !typeOfExercise || !currentUser ) {
         res.status(400)
         throw new Error('Please add all fields')
     };
 
-    const exercise = await Exercise.create({ userId, exerciseName, sessionHistory });
+    const exercise = await Exercise.create({ typeOfExercise, _creator: currentUser });
 
     res.status(200).json(exercise);
 });
